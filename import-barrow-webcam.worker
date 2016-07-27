@@ -1,0 +1,11 @@
+require './feeder-import.rb'
+
+watch '/mnt/incoming/barrow_webcam', :force_polling => true, :latency => 1 do
+  match extension jpg do
+    slug = 'webcam-uaf-barrow-seaice-images'
+    timestamp = DateTime.parse(File.basename(filename), "%Y_%m_%dt%H_%M_%S")
+
+    cached_file = FeederImport.cache!(filename, slug)
+    FeederImport.notify!(cached_file, slug, timestamp)
+  end
+end

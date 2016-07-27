@@ -1,0 +1,18 @@
+require './feeder-import.rb'
+
+
+watch '/mnt/incoming/barrow_radar', :force_polling => true, :latency => 1 do
+  match extension any do
+    slug = case filename.split('.').last.to_sym
+    when :tif
+      'radar-uaf-barrow-seaice-geotif'
+    when :png
+      'radar-uaf-barrow-seaice-images'
+    end
+
+    timestamp = DateTime.strptime(File.basename(filename), "SIR_%Y%m%d_%H%M")
+
+    cached_file = FeederImport.cache!(filename, slug)
+    FeederImport.notify!(cached_file, slug, timestamp )
+  end
+end

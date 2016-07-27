@@ -1,0 +1,22 @@
+require './feeder-import.rb'
+
+watch "/mnt/npp", :force_polling => true, :latency => 1 do
+  match extension md5 do
+    path = File.dirname(filename)
+    scene_id = File.basename(filename, '.md5')
+    fragment = "#{path}/#{scene_id}"
+    timestamp = DateTime.strptime(scene_id, "npp.%y%j.%H%M")
+      
+    files = {
+      'snpp-gina-alaska-i05-images' =>"#{fragment}_I05.tif",
+      'npp-gina-alaska-truecolor-images' => "#{fragment}_M05_M04_M03_I01.tif",
+      'npp-gina-alaska-dnb-images' => "#{fragment}_DNB.tif",
+      'npp-gina-alaska-landcover-images' => "#{fragment}_I03_I02_I01.tif"
+    }
+      
+    files.each do |key, file|
+      cached_file = FeederImport.cache!(file, key)
+      FeederImport.notify!(cached_file, key, timestamp)
+    end
+  end
+end
