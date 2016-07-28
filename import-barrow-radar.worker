@@ -1,5 +1,4 @@
-require './feeder-import.rb'
-
+require File.expand_path('../workers/feeder-import.rb', __FILE__) unless defined?(FeederImport)
 
 watch '/mnt/incoming/barrow_radar', :force_polling => true, :latency => 1 do
   match extension any do
