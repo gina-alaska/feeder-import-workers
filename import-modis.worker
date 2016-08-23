@@ -4,8 +4,8 @@ watch "/mnt/modis/images", :force_polling => true, :latency => 1 do
   match extension finished do
     path = File.dirname(filename)
     scene_id = File.basename(filename, '.finished')
-    timestamp = DateTime.strptime(scene_id[3..-1], "%y%j.%H%M")
-      
+    timestamp = DateTime.strptime(scene_id[3..-1], "%Y%j.%H%M")
+
     fragment = "#{path}/#{scene_id}"
     files = {
       'modis-gina-alaska-naturalcolor-images' => "#{fragment}_ATM1_500_ATM4_ATM3_ATM1.alaska_albers.tif",
@@ -16,6 +16,7 @@ watch "/mnt/modis/images", :force_polling => true, :latency => 1 do
     }
 
     files.each do |key, file|
+      next unless File.exist?(file)
       cached_file = FeederImport.cache!(file, key)
       FeederImport.notify!(cached_file, key, timestamp)
     end
