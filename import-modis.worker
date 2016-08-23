@@ -4,7 +4,7 @@ watch "/mnt/modis/images", :force_polling => true, :latency => 1 do
   match extension finished do
     path = File.dirname(filename)
     scene_id = File.basename(filename, '.finished')
-    timestamp = DateTime.strptime(scene_id[3..-1], "%Y%j.%H%M")
+    timestamp = DateTime.strptime(scene_id[3..-1], "%Y%m%d.%H%M")
 
     fragment = "#{path}/#{scene_id}"
     files = {
