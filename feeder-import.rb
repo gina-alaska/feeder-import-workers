@@ -3,7 +3,7 @@ require 'uri'
 require 'fileutils'
 
 class FeederImport
-  
+
   def self.cache!(file, key)
     filename = File.basename(file)
     source_file = File.expand_path(file)
@@ -19,11 +19,11 @@ class FeederImport
   def self.notify!(file, feed, timestamp = nil)
     timestamp ||= Time.now
 
-    uri = URI('http://feeder.gina.alaska.edu/api/v1/import')
+    uri = URI("#{ENV['FEEDER_IMPORT_URL']}/api/v1/import")
     req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json', 'token' => ENV['FEEDER_API_TOKEN'])
     req.body = {
       feed: feed,
-      url: "#{ENV['FEEDER_IMPORT_URL']}/#{file}",
+      url: "#{ENV['FEEDER_FLINGER_URL']}/#{file}",
       timestamp: timestamp
     }.to_json
 
