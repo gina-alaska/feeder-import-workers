@@ -23,7 +23,7 @@ class FeederImport
     req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json', 'token' => ENV['FEEDER_API_TOKEN'])
     req.body = {
       feed: feed,
-      url: "#{ENV['FEEDER_FLINGER_URL']}/#{feed}/#{file}",
+      url: "#{ENV['FEEDER_FLINGER_URL']}/#{feed}/#{File.basename(file)}",
       timestamp: timestamp
     }.to_json
 
