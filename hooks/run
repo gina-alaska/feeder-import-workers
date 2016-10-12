@@ -1,0 +1,9 @@
+_conveyor_gems=$(hab pkg path uafgina/conveyor)/vendor/bundle/ruby/2.3.0
+export GEM_HOME="{{pkg.path}}/vendor/bundle/ruby/2.3.0"
+export GEM_PATH="$(hab pkg path core/ruby)/lib/ruby/gems/2.3.0:$(hab pkg path core/bundler):$_conveyor_gems:$GEM_HOME"
+export PATH="$PATH:$(hab pkg path core/bundler)/bin"
+
+cd {{pkg.svc_var_path}}
+
+exec 2>&1
+exec hab pkg exec uafgina/conveyor conveyor

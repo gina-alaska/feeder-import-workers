@@ -1,0 +1,6 @@
+threadpool = 5
+timeout = 600
+
+landfall_raw_path = "/home/processing/raw"
+landfall_shared_path = "/gluster/cache"
+sandy_controller = "http://dashboard.nrt.gina.alaska.edu"
