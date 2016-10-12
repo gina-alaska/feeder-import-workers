@@ -1,6 +1,6 @@
-pkg_name="feeder-import"
+pkg_name="feeder-import-workers"
 pkg_version="0.4.0"
-pkg_shasum=""
+pkg_shasum="f427c72d31d3d1671948e4494c404db09d1b76c08a4592e1877f8653a6c643a7"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
 pkg_license=('MIT')
@@ -16,22 +16,9 @@ pkg_build_deps=(
 )
 
 do_build() {
-  export CPPFLAGS="${CPPFLAGS} ${CFLAGS}"
-  local _bundler_dir=$(hab pkg path core/bundler)
-
-  export GEM_HOME=${pkg_path}/vendor/bundler
-  export GEM_PATH=${_bundler_dir}:${GEM_HOME}
-  export PATH=${PATH}:$(hab pkg path core/bundler)/bin
-
-  if [[ -z "`grep 'gem .*rb-readline.*' Gemfile`" ]]; then
-    echo 'gem "rb-readline"' >> Gemfile
-  fi
-
-  build_line "Vendoring Gems"
-  bundle install --jobs 2 --retry 5 --path vendor/bundle --without development test
+ return 0
 }
 
 do_install() {
   cp -R workers/ ${pkg_prefix}/workers
-  cp -R vendor/ ${pkg_prefix}/vendor
 }
