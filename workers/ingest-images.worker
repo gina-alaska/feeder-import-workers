@@ -5,7 +5,7 @@ watch "/mnt/incoming/images", :force_polling => true, :latency => 1 do
     slug = "aurora-cam"
     timestamp = DateTime.parse(File.basename(filename), "ABCam_%Y%m%d_%H%M%S")
 
-    cached_file = FeederImport.cache!(filename, slug)
-    FeederImport.notify!(cached_file, slug, timestamp)
+    FeederImport.cache!(filename, slug)
+    FeederImport.notify!(filename, slug, timestamp)
   end
 end

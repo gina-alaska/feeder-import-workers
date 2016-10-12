@@ -11,7 +11,7 @@ watch '/mnt/incoming/barrow_radar', :force_polling => true, :latency => 1 do
 
     timestamp = DateTime.strptime(File.basename(filename), "SIR_%Y%m%d_%H%M")
 
-    cached_file = FeederImport.cache!(filename, slug)
-    FeederImport.notify!(cached_file, slug, timestamp )
+    FeederImport.cache!(filename, slug)
+    FeederImport.notify!(filename, slug, timestamp )
   end
 end

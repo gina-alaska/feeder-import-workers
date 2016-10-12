@@ -17,8 +17,8 @@ watch "/mnt/modis/images", :force_polling => true, :latency => 1 do
 
     files.each do |key, file|
       next unless File.exist?(file)
-      cached_file = FeederImport.cache!(file, key)
-      FeederImport.notify!(cached_file, key, timestamp)
+      FeederImport.cache!(file, key)
+      FeederImport.notify!(file, key, timestamp)
     end
   end
 end
