@@ -1,6 +1,6 @@
 pkg_name="feeder-import-workers"
-pkg_version="0.4.1"
-pkg_shasum="56694e6730bf12c63931400c4361bcbd7e600297af88d8e62bbd27a31f643996"
+pkg_version="0.4.2"
+pkg_shasum="4f16892bd18f9336d2adfb4268dc0bdc036e38a1598004fe42de27dabb5ad215"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
 pkg_license=('MIT')
